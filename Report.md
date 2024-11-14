@@ -5,11 +5,17 @@
 - The label after One-hot encode
   
  [[0. 0. 1. ... 0. 0. 0.]
+ 
  [0. 0. 0. ... 0. 0. 0.]
+ 
  [0. 0. 0. ... 0. 0. 0.]
+ 
  ...
+ 
  [0. 0. 0. ... 0. 0. 0.]
+ 
  [0. 0. 0. ... 0. 0. 1.]
+ 
  [0. 0. 0. ... 0. 0. 0.]]
 
 #### Evaluation Results Based on Independent Test Set
