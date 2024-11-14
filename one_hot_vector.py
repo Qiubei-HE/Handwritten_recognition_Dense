@@ -30,8 +30,11 @@ digits = load_digits()
 X, y = digits.data, digits.target
 X_train, X_temp, y_train, y_temp = train_test_split(X, y, test_size=0.3, random_state=16)
 X_eval, X_test, y_eval, y_test = train_test_split(X_temp, y_temp, test_size=0.5, random_state=16)
+print('The label befor One-hot encode','\n',y_train)
 
-# One-hot encode labels ! ! ! ! ! ! ! ! ! ! ! !!
+
+
+# One-hot encode labels !!!!
 encoder = OneHotEncoder(sparse_output=False, categories='auto')
 
 # Reshape the labels to a 2D array (required by OneHotEncoder)
@@ -43,6 +46,8 @@ y_test = np.array(y_test).reshape(-1, 1)
 y_train = encoder.fit_transform(y_train)
 y_eval = encoder.transform(y_eval)
 y_test = encoder.transform(y_test)
+
+print('The label after One-hot encode','\n',y_train)
 
 # Build the model
 model = Sequential([
@@ -93,4 +98,22 @@ plt.title("Validation Metrics Over Epochs")
 plt.legend()
 
 plt.tight_layout()
+# Save the plot as an image file before displaying
+plt.savefig("training_evaluation_metrics.png", format="png")
 plt.show()
+
+# Evaluate the model on the test set after training
+test_loss, test_accuracy, test_precision, test_recall = model.evaluate(X_test, y_test, verbose=0)
+
+# Calculate the F1 score for the test set
+if (test_precision + test_recall) > 0:
+    test_f1_score = 2 * (test_precision * test_recall) / (test_precision + test_recall)
+else:
+    test_f1_score = 0
+
+# Print the test set evaluation results
+print(f"Test Loss: {test_loss:.4f}")
+print(f"Test Accuracy: {test_accuracy:.4f}")
+print(f"Test Precision: {test_precision:.4f}")
+print(f"Test Recall: {test_recall:.4f}")
+print(f"Test F1 Score: {test_f1_score:.4f}")
