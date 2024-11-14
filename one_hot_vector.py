@@ -31,7 +31,7 @@ X, y = digits.data, digits.target
 X_train, X_temp, y_train, y_temp = train_test_split(X, y, test_size=0.3, random_state=16)
 X_eval, X_test, y_eval, y_test = train_test_split(X_temp, y_temp, test_size=0.5, random_state=16)
 
-# One-hot encode labels !!!!
+# One-hot encode labels ! ! ! ! ! ! ! ! ! ! ! !!
 encoder = OneHotEncoder(sparse_output=False, categories='auto')
 
 # Reshape the labels to a 2D array (required by OneHotEncoder)
