@@ -8,7 +8,7 @@ load_digits()
 
 70% Train set, 15% Eval set, 15% test set
 
-#### One-hot-vector
+#### **One-hot-vector**
 
 In the code, to make it easier for the machine to process. I applied one-hot encoding to the labels of handwritten digits, converting each single-digit label into a one-hot vector format.
 
