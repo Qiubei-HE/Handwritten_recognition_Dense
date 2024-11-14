@@ -49,6 +49,6 @@ print("Single number test:", "\n", one_hot_vector(7))  # Should be print 1 at th
 print("Multiple numbers test:", "\n", one_hot_vector([1, 3, 4]))  # Should be return a matrix with n=10 columns and m=3 rows.
 
 # Test Loss function
-y_true = [3, -0.5, 2, 7] # assume it is real data
-y_pred = [2.5, 0.0, 2, 8] # assume it is prediction
+y_true = [3, 1, 2, 7] # assume it is real data
+y_pred = [3, 1, 2, 8] # assume it is prediction
 print("Mean Loss (MSE):", mean_loss(y_true, y_pred))
