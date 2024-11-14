@@ -1,8 +1,7 @@
 ############### Note 📒 ###############
 ## 08/11/2024
 
-# 1. one_hot_vector(): Input a number and return the corresponding one-hot vector.
-# 2. mean_loss(): Calculating MSE, used as a loss function.
+# one_hot_vector(): Input a number and return the corresponding one-hot vector.
 
 # The professor explained the logic of model training: 
 # the equation for calculating error (MSE), and the process of minimizing this error by adjusting the model parameters ('min L(x)')
@@ -10,29 +9,94 @@
 # He also introduced the one-hot vector, 
 # which can convert categorical variables into a form that algorithms can easily utilize (binary vectors).
 #######################################
-
-from sklearn.preprocessing import OneHotEncoder
-from sklearn.metrics import mean_squared_error
 import numpy as np
+import matplotlib.pyplot as plt
+import tensorflow as tf
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense, Flatten
+from tensorflow.keras.optimizers import Adam
+from tensorflow.keras.utils import to_categorical
+from sklearn.datasets import load_digits
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler, OneHotEncoder
 
-def one_hot_vector(y, n=10):
-    encoder = OneHotEncoder(categories=[range(n)], sparse_output=False)
-    y = np.array(y).reshape(-1, 1)  # Convert the input to a column
-    return encoder.fit_transform(y)
+# Parameters
+epochs = 10
+batch_size = 32
+learning_rate = 0.001
 
-def mean_loss(y_true, y_pred):
-    # Use mean_squared_error to get the MSE
-    return mean_squared_error(y_true, y_pred)
+# Load and prepare the dataset
+digits = load_digits()
+X, y = digits.data, digits.target
+X_train, X_temp, y_train, y_temp = train_test_split(X, y, test_size=0.3, random_state=16)
+X_eval, X_test, y_eval, y_test = train_test_split(X_temp, y_temp, test_size=0.5, random_state=16)
 
+# Standardize the data
+scaler = StandardScaler()
+X_train = scaler.fit_transform(X_train)
+X_eval = scaler.transform(X_eval)
+X_test = scaler.transform(X_test)
 
-## TEST EXAMPLE
+# One-hot encode labels !!!!
+encoder = OneHotEncoder(sparse_output=False, categories='auto')
 
-# Test one_hot_vector
-print("Single number test:", "\n", one_hot_vector(7))  # Should be print 1 at the 7th position in a single vector.
-print("Multiple numbers test:", "\n", one_hot_vector([1, 3, 4]))  # Should be return a matrix with n=10 columns and m=3 rows.
+# Reshape the labels to a 2D array (required by OneHotEncoder)
+y_train = np.array(y_train).reshape(-1, 1)
+y_eval = np.array(y_eval).reshape(-1, 1)
+y_test = np.array(y_test).reshape(-1, 1)
 
-# Test Loss function
-y_true = [3, 1, 2, 7] # assume it is real data
-y_pred = [3, 1, 2, 8] # assume it is prediction
-print("Mean Loss (MSE):", mean_loss(y_true, y_pred))
+# Fit the encoder on y_train and transform y_train, y_eval, and y_test
+y_train = encoder.fit_transform(y_train)
+y_eval = encoder.transform(y_eval)
+y_test = encoder.transform(y_test)
 
+# Build the model
+model = Sequential([
+    Flatten(input_shape=(64,)),
+    Dense(128, activation='relu'),
+    Dense(64, activation='relu'),
+    Dense(10, activation='softmax')
+])
+
+# Compile the model with multiple metrics
+model.compile(optimizer=Adam(learning_rate=learning_rate),
+              loss='categorical_crossentropy',
+              metrics=['accuracy', tf.keras.metrics.Precision(name='precision'), 
+                       tf.keras.metrics.Recall(name='recall')])
+
+# Train the model and record metrics
+history = model.fit(X_train, y_train, 
+                    validation_data=(X_eval, y_eval), 
+                    epochs=epochs, 
+                    batch_size=batch_size)
+
+# Calculate F1-score manually
+precision = history.history['val_precision']
+recall = history.history['val_recall']
+f1_scores = [2 * (p * r) / (p + r) if (p + r) > 0 else 0 for p, r in zip(precision, recall)]
+
+# Plot training and evaluation loss
+epochs_range = range(1, epochs + 1)
+plt.figure(figsize=(14, 5))
+
+plt.subplot(1, 2, 1)
+plt.plot(epochs_range, history.history['loss'], label="Training Loss")
+plt.plot(epochs_range, history.history['val_loss'], label="Evaluation Loss")
+plt.xlabel("Epochs")
+plt.ylabel("Loss (Categorical Crossentropy)")
+plt.title("Training and Evaluation Loss Over Epochs")
+plt.legend()
+
+# Plot validation metrics
+plt.subplot(1, 2, 2)
+plt.plot(epochs_range, history.history['val_accuracy'], label="Validation Accuracy")
+plt.plot(epochs_range, precision, label="Validation Precision")
+plt.plot(epochs_range, recall, label="Validation Recall")
+plt.plot(epochs_range, f1_scores, label="Validation F1 Score")
+plt.xlabel("Epochs")
+plt.ylabel("Score")
+plt.title("Validation Metrics Over Epochs")
+plt.legend()
+
+plt.tight_layout()
+plt.show()
