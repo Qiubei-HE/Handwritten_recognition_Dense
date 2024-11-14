@@ -45,7 +45,7 @@ def mean_loss(y_true, y_pred):
 ## TEST EXAMPLE
 
 # Test one_hot_vector
-print("Single number test:", "\n", one_hot_vector(7))  # Should be print 1 at the 7th position in a single vector.
+print("Single number test:", "\n", one_hot_vector(7))  # Should be print 1 at the 8th position in a single vector.
 print("Multiple numbers test:", "\n", one_hot_vector([1, 3, 4]))  # Should be return a matrix with n=10 columns and m=3 rows.
 
 # Test Loss function
