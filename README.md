@@ -1,15 +1,15 @@
 ## Handwritten_recognition
 
----------------------------------------------Die deutsche Version folgt unten-------------------------------------------------
+-------------------------------------------Die deutsche Version folgt unten--------------------------------------------------
 
 Dies ist ein Software-Praktikum an der Universität Hamburg, das darauf abzielt, die Klassifizierung von handgeschriebenen Ziffern (0-9) mit Hilfe von KI-Tools auf der Basis von linearen und nichtlinearen Modellen zu implementieren.
 
 Die zentralen Lernziele sind:
-1.Grundlegende Konzepte der Softwareentwicklung
-2.Neuronale Netzwerke
-3.Gradientenmethoden
-4.Optimierungsmethoden
-5.Methoden zur Verbesserung der Modellleistung.
+1. Grundlegende Konzepte der Softwareentwicklung
+2. Neuronale Netzwerke
+3. Gradientenmethoden
+4. Optimierungsmethoden
+5. Methoden zur Verbesserung der Modellleistung.
 
 
 ----------------------------------------------The English version below------------------------------------------------------
