@@ -1,6 +1,7 @@
 ## Handwritten_recognition
 
 -----------------------------------------------The English version below------------------------------------------------------
+
 Dies ist ein Software-Praktikum an der Universität Hamburg, das darauf abzielt, die Klassifizierung von handgeschriebenen Ziffern (0-9) mit Hilfe von KI-Tools auf der Basis von linearen und nichtlinearen Modellen zu implementieren.
 
 Die zentralen Lernziele sind:
