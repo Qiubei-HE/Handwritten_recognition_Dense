@@ -99,7 +99,7 @@ plt.legend()
 
 plt.tight_layout()
 # Save the plot as an image file before displaying
-plt.savefig("training_evaluation_metrics.png", format="png")
+plt.savefig("01_training_evaluation_metrics.png", format="png")
 plt.show()
 
 # Evaluate the model on the test set after training
