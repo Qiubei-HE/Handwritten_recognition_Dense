@@ -1,9 +1,9 @@
 #### One-hot-vector
 - The label befor One-hot encode
-- 
+  
  [2 3 3 ... 4 9 5]
 - The label after One-hot encode
-- 
+  
  [[0. 0. 1. ... 0. 0. 0.]
  [0. 0. 0. ... 0. 0. 0.]
  [0. 0. 0. ... 0. 0. 0.]
