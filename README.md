@@ -12,7 +12,7 @@ Die zentralen Lernziele sind:
 5. Methoden zur Verbesserung der Modellleistung.
 
 
-----------------------------------------------The English version below------------------------------------------------------
+----------------------------------------------The English version below-------------------------------------------------------
 
 This is a course project at the University of Hamburg, aiming to implement the classification of handwritten digits (0-9) using AI tools, based on linear and nonlinear models. 
 
