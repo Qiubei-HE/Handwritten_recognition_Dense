@@ -34,16 +34,6 @@ def one_hot_vector(y, n = 10):
         return np.array(matrix)
 
 def mean_loss(y_true, y_pred):
-    """
-    Calculate the mean loss (Mean Squared Error) over all samples.
-    
-    Parameters:
-    y_true (array-like): Actual values.
-    y_pred (array-like): Predicted values.
-    
-    Returns:
-    float: Mean loss.
-    """
     y_true, y_pred = np.array(y_true), np.array(y_pred)
     # Calculate individual losses (errors)
     errors = (y_true - y_pred) ** 2
