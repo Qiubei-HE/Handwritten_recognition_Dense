@@ -31,12 +31,6 @@ X, y = digits.data, digits.target
 X_train, X_temp, y_train, y_temp = train_test_split(X, y, test_size=0.3, random_state=16)
 X_eval, X_test, y_eval, y_test = train_test_split(X_temp, y_temp, test_size=0.5, random_state=16)
 
-# Standardize the data
-scaler = StandardScaler()
-X_train = scaler.fit_transform(X_train)
-X_eval = scaler.transform(X_eval)
-X_test = scaler.transform(X_test)
-
 # One-hot encode labels !!!!
 encoder = OneHotEncoder(sparse_output=False, categories='auto')
 
