@@ -1,6 +1,17 @@
 ############### Note 📒 ###############
 ## 08/11/2024
 
+# one_hot_vector(): Gibt bei Eingabe einer Zahl den entsprechenden One-Hot-Vektor zurück.
+
+# Der Professor erklärte die Logik des Modelltrainings:
+# die Gleichung zur Berechnung des Fehlers (MSE) und den Prozess der Minimierung dieses Fehlers durch Anpassen der Modellparameter ('min L(x)').
+
+# Er stellte auch den One-Hot-Vektor vor,
+# der kategoriale Variablen in eine Form umwandeln kann, die von Algorithmen leicht genutzt werden kann (binäre Vektoren).
+
+------- **ENGLISH BELOW** --------------
+
+
 # one_hot_vector(): Input a number and return the corresponding one-hot vector.
 
 # The professor explained the logic of model training: 
