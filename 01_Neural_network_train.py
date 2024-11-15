@@ -9,7 +9,7 @@
 # Er stellte auch den One-Hot-Vektor vor,
 # der kategoriale Variablen in eine Form umwandeln kann, die von Algorithmen leicht genutzt werden kann (binäre Vektoren).
 
-------- **ENGLISH BELOW** --------------
+#------- **ENGLISH BELOW** --------------
 
 
 # one_hot_vector(): Input a number and return the corresponding one-hot vector.
