@@ -20,6 +20,7 @@
 # He also introduced the one-hot vector, 
 # which can convert categorical variables into a form that algorithms can easily utilize (binary vectors).
 #######################################
+
 import numpy as np
 import matplotlib.pyplot as plt
 import tensorflow as tf
@@ -36,7 +37,7 @@ epochs = 10
 batch_size = 32
 learning_rate = 0.001
 
-# Load and prepare the dataset
+## Laden und Vorbereiten des Datensatzes         # Load and prepare the dataset
 digits = load_digits()
 X, y = digits.data, digits.target
 X_train, X_temp, y_train, y_temp = train_test_split(X, y, test_size=0.3, random_state=16)
@@ -45,22 +46,22 @@ print('The label befor One-hot encode','\n',y_train)
 
 
 
-# One-hot encode labels !!!!
+## One-Hot-Enkodierung der Labels durchführen !                 # One-hot encode labels !!!!
 encoder = OneHotEncoder(sparse_output=False, categories='auto')
 
-# Reshape the labels to a 2D array (required by OneHotEncoder)
+## Die Labels in ein 2D-Array umformen (erforderlich für OneHotEncoder)             # Reshape the labels to a 2D array (required by OneHotEncoder)
 y_train = np.array(y_train).reshape(-1, 1)
 y_eval = np.array(y_eval).reshape(-1, 1)
 y_test = np.array(y_test).reshape(-1, 1)
 
-# Fit the encoder on y_train and transform y_train, y_eval, and y_test
+## Den Encoder auf y_train anpassen und y_train, y_eval sowie y_test transformieren      # Fit the encoder on y_train and transform y_train, y_eval, and y_test
 y_train = encoder.fit_transform(y_train)
 y_eval = encoder.transform(y_eval)
 y_test = encoder.transform(y_test)
 
 print('The label after One-hot encode','\n',y_train)
 
-# Build the model
+## Das Modell erstellen                       # Build the model
 model = Sequential([
     Flatten(input_shape=(64,)),
     Dense(128, activation='relu'),
@@ -68,24 +69,24 @@ model = Sequential([
     Dense(10, activation='softmax')
 ])
 
-# Compile the model with multiple metrics
+## Das Modell mit mehreren Metriken kompilieren               # Compile the model with multiple metrics
 model.compile(optimizer=Adam(learning_rate=learning_rate),
               loss='categorical_crossentropy',
               metrics=['accuracy', tf.keras.metrics.Precision(name='precision'), 
                        tf.keras.metrics.Recall(name='recall')])
-
-# Train the model and record metrics
+ 
+## Das Modell trainieren und die Metriken aufzeichnen        # Train the model and record metrics
 history = model.fit(X_train, y_train, 
                     validation_data=(X_eval, y_eval), 
                     epochs=epochs, 
                     batch_size=batch_size)
 
-# Calculate F1-score manually
+## Den F1-Score manuell berechnen                            # Calculate F1-score manually
 precision = history.history['val_precision']
 recall = history.history['val_recall']
 f1_scores = [2 * (p * r) / (p + r) if (p + r) > 0 else 0 for p, r in zip(precision, recall)]
 
-# Plot training and evaluation loss
+### Trainings- und Evaluationsverlust plotten               # Plot training and evaluation loss
 epochs_range = range(1, epochs + 1)
 plt.figure(figsize=(14, 5))
 
@@ -97,7 +98,7 @@ plt.ylabel("Loss (Categorical Crossentropy)")
 plt.title("Training and Evaluation Loss Over Epochs")
 plt.legend()
 
-# Plot validation metrics
+## Validierungsmetriken plotten              # Plot validation metrics     #绘制验证指标
 plt.subplot(1, 2, 2)
 plt.plot(epochs_range, history.history['val_accuracy'], label="Validation Accuracy")
 plt.plot(epochs_range, precision, label="Validation Precision")
@@ -109,20 +110,21 @@ plt.title("Validation Metrics Over Epochs")
 plt.legend()
 
 plt.tight_layout()
-# Save the plot as an image file before displaying
+
+## Das Plot als Bilddatei speichern, bevor es angezeigt wird                  # Save the plot as an image file before displaying
 plt.savefig("01_training_evaluation_metrics.png", format="png")
 plt.show()
 
-# Evaluate the model on the test set after training
+## Das Modell nach dem Training auf dem Testdatensatz evaluieren               # Evaluate the model on the test set after training
 test_loss, test_accuracy, test_precision, test_recall = model.evaluate(X_test, y_test, verbose=0)
 
-# Calculate the F1 score for the test set
+## Den F1-Score für den Testdatensatz berechnen                            # Calculate the F1 score for the test set
 if (test_precision + test_recall) > 0:
     test_f1_score = 2 * (test_precision * test_recall) / (test_precision + test_recall)
 else:
     test_f1_score = 0
 
-# Print the test set evaluation results
+## Die Evaluationsergebnisse des Testdatensatzes ausdrucken             # Print the test set evaluation results
 print(f"Test Loss: {test_loss:.4f}")
 print(f"Test Accuracy: {test_accuracy:.4f}")
 print(f"Test Precision: {test_precision:.4f}")
