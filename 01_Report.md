@@ -1,3 +1,69 @@
+#### Parameter
+
+epochs = 10
+batch_size = 32
+learning_rate = 0.001
+
+#### Datensatz
+
+load_digits()
+
+70% Trainingssatz, 15% Evaluationssatz, 15% Testsatz
+
+#### One-hot-Vektor
+
+Im Code habe ich zur einfacheren Verarbeitung durch die Maschine eine One-hot-Kodierung auf die Labels der handschriftlichen Ziffern angewendet, wobei jedes einzelne Ziffernlabel in ein One-hot-Vektor-Format umgewandelt wurde.
+
+Das Label vor der One-hot-Kodierung
+
+[2 3 3 ... 4 9 5]
+
+Das Label nach der One-hot-Kodierung
+
+[[0. 0. 1. ... 0. 0. 0.]
+
+[0. 0. 0. ... 0. 0. 0.]
+
+[0. 0. 0. ... 0. 0. 0.]
+
+...
+
+[0. 0. 0. ... 0. 0. 0.]
+
+[0. 0. 0. ... 0. 0. 1.]
+
+[0. 0. 0. ... 0. 0. 0.]]
+
+#### Modell
+
+Die Eingabeschicht flacht die Eingabedaten in ein 1D-Array der Größe 64 ab, da der Datensatz aus 8x8-Bildern mit 64 Pixeln Information besteht. Als Nächstes folgt eine vollständig verbundene Schicht mit 128 Neuronen, gefolgt von einer weiteren vollständig verbundenen Schicht mit 64 Neuronen. Beide Zwischenschichten (128, 64) verwenden die ReLU-Aktivierungsfunktion. Schließlich gibt es eine Ausgabeschicht mit 10 Neuronen, da wir insgesamt 10 Klassen (0-9) haben, mit der Softmax-Aktivierungsfunktion.
+
+#### Verlustfunktion
+
+Da es sich um ein Mehrklassenklassifizierungsproblem handelt, verwenden wir 'categorical_crossentropy' als Verlustfunktion.
+
+#### Ergebnisgrafik
+
+![training_evaluation_metrics](https://github.com/user-attachments/assets/fb2bea6e-4487-4284-8cdd-71fc868177ce)
+
+#### Bewertungsergebnisse basierend auf einem unabhängigen Testsatz
+
+Testverlust: 0.1007
+
+Testgenauigkeit: 0.9593
+
+Testpräzision: 0.9699
+
+Test-Recall: 0.9556
+
+Test-F1-Wert: 0.9627
+
+
+
+---------**ENGLISH BELOW**------------
+
+
+
 #### Parameters
 epochs = 10
 batch_size = 32
